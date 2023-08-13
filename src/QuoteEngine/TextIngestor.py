@@ -1,7 +1,7 @@
 from .IngestorInterface import IngestorInterface
 from .QuoteModel import QuoteModel
 from typing import List
-from helpers import read_text_file
+from QuoteEngine.helpers import read_text_file
 
 
 class TextIngestor(IngestorInterface):

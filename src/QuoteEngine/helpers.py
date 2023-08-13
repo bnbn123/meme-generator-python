@@ -31,21 +31,24 @@ def read_text_file(path):
         for row in output:
             splittedStr = row.split("-")
             if len(splittedStr) == 2:
-                # print(QuoteModel(splittedStr[0].strip(), splittedStr[1].strip()))
                 ls.append(QuoteModel(
                     splittedStr[0].strip(), splittedStr[1].strip()))
         return ls
 
 
 def read_pdf_file(path):
+    print("read_pdf_file path", path)
     TEMP_FILE = "demo.txt"
     with open(path, encoding="utf8"):
-        # output = subprocess.Popen([path], shell=True)
-        # print(output.decode("utf-8"))
-        cmd = r"""{} "{}" "{}" -enc UTF-8""".format(
-            "pdftotext", path, TEMP_FILE)
-        subprocess.call(cmd, shell=True, stderr=subprocess.STDOUT)
-
-        output = read_text_file(TEMP_FILE)
+        subprocess.call(
+            ['pdftotext', path, TEMP_FILE, '-enc', 'UTF-8'], shell=True)
+        ls = []
+        with open(TEMP_FILE, "r") as txtfile:
+            output = txtfile.readlines()
+            for row in output:
+                splittedStr = row.split("-")
+                if len(splittedStr) == 2:
+                    ls.append(QuoteModel(
+                        splittedStr[0].strip(), splittedStr[1].strip()))
         os.remove(TEMP_FILE)
-        return output
+        return ls

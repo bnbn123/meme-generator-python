@@ -1,9 +1,10 @@
-from helpers import read_csv_file
-from typing import List
-from .QuoteModel import QuoteModel
-from .IngestorInterface import IngestorInterface
-import os
 import sys
+import os
+from .IngestorInterface import IngestorInterface
+from .QuoteModel import QuoteModel
+from typing import List
+
+from QuoteEngine.helpers import read_csv_file
 
 sys.path.append("../src")
 
@@ -16,4 +17,5 @@ sys.path.append(parent)
 class CsvIngestor(IngestorInterface):
 
     def parse(cls, path: str) -> List[QuoteModel]:
+        print("path", path)
         return read_csv_file(path)

@@ -1,17 +1,22 @@
+"""Docstring for IngestorInterface's module."""
 from abc import abstractmethod
 from .QuoteModel import QuoteModel
 from typing import List
-import os
 
 
 class IngestorInterface:
-    valid_exts = ["csv", "pdf", "txt", "docx"]
+    """Docstring for IngestorInterface's abstract class."""
 
     @classmethod
-    def can_ingest(cls, path: str) -> bool:
-        _, extension = os.path.splitext(path)
-        return extension in cls.valid_exts
+    def can_ingest(cls, suffix: str) -> bool:
+        """Docstring for can_ingest function."""
+        return (
+            True
+            if suffix == "csv" or suffix == "pdf" or suffix == "txt" or suffix == "docx"
+            else False
+        )
 
     @abstractmethod
     def parse(cls, path: str) -> List[QuoteModel]:
+        """Docstring for parse function."""
         pass
