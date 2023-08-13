@@ -36,12 +36,12 @@ def generate_meme(path=None, body=None, author=None):
                 ],
             )
         )
-        print("quote_files", quote_files)
         quotes = []
         if quote_files is not None:
             for f in quote_files:
-                print("f", f)
-                quotes.extend(Ingestor.parse(f))
+                quotes_list = Ingestor.parse(f)
+                if quotes_list is not None:
+                    quotes.extend(Ingestor.parse(f))
         quote = random.choice(quotes)
     else:
         if author is None:

@@ -12,14 +12,11 @@ class Ingestor:
     """Docstring for Ingestor's class."""
 
     ingestors = []
-    print("Ingestor path", ingestors)
 
     def parse(path) -> List[QuoteModel]:
         """Docstring for parse function."""
-        print("Ingestor path", path)
         splittedPath = path.split(".")
         extension = splittedPath[-1]
-        print("Ingestor extension", extension)
 
         try:
             isCanIngest = IngestorInterface.can_ingest(extension)

@@ -37,7 +37,6 @@ def read_text_file(path):
 
 
 def read_pdf_file(path):
-    print("read_pdf_file path", path)
     TEMP_FILE = "demo.txt"
     with open(path, encoding="utf8"):
         subprocess.call(

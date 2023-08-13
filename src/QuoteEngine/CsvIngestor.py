@@ -17,5 +17,4 @@ sys.path.append(parent)
 class CsvIngestor(IngestorInterface):
 
     def parse(cls, path: str) -> List[QuoteModel]:
-        print("path", path)
         return read_csv_file(path)
