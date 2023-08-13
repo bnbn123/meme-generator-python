@@ -69,7 +69,8 @@ def meme_post():
         image_url = request.form["image_url"]
         body = '"{}"'.format(request.form["body"])
         author = request.form["author"]
-        response = requests.get(image_url)
+        response = requests.get(image_url, verify=False)
+        print(response.status_code)
         local_image_url = "{}/{}{}".format(
             STATIC_FOLDER.replace(".", root_dir, 1),
             str(uuid.uuid4()),
@@ -83,7 +84,7 @@ def meme_post():
         return render_template("meme_error.html")
     else:
         os.remove(local_image_url)
-        return render_template("meme.html", path=path)
+        return render_template("meme.html", path=f"/static/{path}")
 
 
 if __name__ == "__main__":
