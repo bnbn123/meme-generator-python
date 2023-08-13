@@ -36,5 +36,8 @@ class MemeEngine:
 
         temp_url = "{}{}".format(str(uuid.uuid4()), EXTENSION_OUTPUT)
         savedUrl = "{}/{}".format(self.output_dir, temp_url)
+        print("temp_url temp_url", temp_url)
+        print("savedUrl savedUrl", savedUrl)
+
         img.save(savedUrl)
-        return savedUrl
+        return temp_url
