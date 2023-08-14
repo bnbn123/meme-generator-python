@@ -25,23 +25,20 @@ def generate_meme(path=None, body=None, author=None):
         img = path[0]
 
     if body is None:
-        quote_files = list(
-            map(
-                lambda path: os.path.join(path.replace(".", root_dir, 1)),
-                [
-                    "./_data/DogQuotes/DogQuotesTXT.txt",
-                    "./_data/DogQuotes/DogQuotesDOCX.docx",
-                    "./_data/DogQuotes/DogQuotesPDF.pdf",
-                    "./_data/DogQuotes/DogQuotesCSV.csv",
-                ],
-            )
-        )
+        quote_files = [
+            "./_data/DogQuotes/DogQuotesTXT.txt",
+            "./_data/DogQuotes/DogQuotesDOCX.docx",
+            "./_data/DogQuotes/DogQuotesPDF.pdf",
+            "./_data/DogQuotes/DogQuotesCSV.csv",
+        ]
         quotes = []
         if quote_files is not None:
             for f in quote_files:
                 quotes_list = Ingestor.parse(f)
                 if quotes_list is not None:
-                    quotes.extend(Ingestor.parse(f))
+                    quotes.extend(quotes_list)
+        if len(quotes) == 0:
+            raise Exception("No Quotes Found, Add a Quote Source")
         quote = random.choice(quotes)
     else:
         if author is None:

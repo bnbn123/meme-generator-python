@@ -70,7 +70,8 @@ def meme_post():
         body = '"{}"'.format(request.form["body"])
         author = request.form["author"]
         response = requests.get(image_url, verify=False)
-        print(response.status_code)
+        # debugging purposes
+        print("POST CREATE RESPONSE: ", response.status_code)
         local_image_url = "{}/{}{}".format(
             STATIC_FOLDER.replace(".", root_dir, 1),
             str(uuid.uuid4()),

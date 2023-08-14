@@ -2,10 +2,10 @@ class QuoteModel:
     """Docstring for QuoteModel's class."""
 
     def __init__(self, body, author):
-        """Docstring for __init__ function."""
+        """init with body and author."""
         self.body = body
         self.author = author
 
     def __str__(self):
-        """Docstring for __str__ function."""
+        """Return both as formatted string"""
         return "{} - {}".format(self.body, self.author)
