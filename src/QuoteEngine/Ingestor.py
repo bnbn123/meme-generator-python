@@ -24,15 +24,23 @@ class Ingestor:
                 raise Exception(
                     "Should import file with extension belong to [csv, pdf, docx, txt]"
                 )
-
+            # have to type safe this to possibly throw exception
+            parsedData: List[QuoteModel] = []
             if extension == "csv":
-                Ingestor.ingestors.extend(CsvIngestor().parse(path))
+                parsedData = CsvIngestor().parse(path)
             elif extension == "pdf":
-                Ingestor.ingestors.extend(PdfIngestor().parse(path))
+                parsedData = PdfIngestor().parse(path)
             elif extension == "docx":
-                Ingestor.ingestors.extend(DocxIngestor().parse(path))
+                parsedData = DocxIngestor().parse(path)
             elif extension == "txt":
-                Ingestor.ingestors.extend(TextIngestor().parse(path))
+                parsedData = TextIngestor().parse(path)
+
+            if len(parsedData) == 0:
+                raise Exception(
+                    "Import success. No data in found file or wrong file content.")
+            # reuse the same list in app.py
+            Ingestor.ingestors.extend(parsedData)
             return Ingestor.ingestors
+        # could improve this part by using custom exception
         except Exception as err:
             print(*err.args)
