@@ -69,7 +69,10 @@ def meme_post():
         image_url = request.form["image_url"]
         body = '"{}"'.format(request.form["body"])
         author = request.form["author"]
+        # try to get image from url
         response = requests.get(image_url, verify=False)
+        # raise exception if response is not 200
+        response.raise_for_status("Fail to load image from path.")
         # debugging purposes
         print("POST CREATE RESPONSE: ", response.status_code)
         local_image_url = "{}/{}{}".format(
@@ -80,8 +83,8 @@ def meme_post():
         with open(local_image_url, "wb") as handler:
             handler.write(response.content)
         path = meme.make_meme(local_image_url, body, author)
-    except requests.exceptions.ConnectionError:
-        print("<Enter user friendly error message>")
+    except requests.exceptions.RequestException as error:
+        print(f"<Create a user defined meme FAILED with exception {error}>")
         return render_template("meme_error.html")
     else:
         os.remove(local_image_url)
